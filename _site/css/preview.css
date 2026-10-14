@@ -1,0 +1,254 @@
+/* Page d'aperçu d'un fichier : barre d'actions, code, Markdown, image, PDF. */
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-1);
+    margin-bottom: 1rem;
+}
+
+.actions .spacer {
+    flex: 1;
+}
+
+.switch {
+    display: inline-flex;
+    gap: var(--s-3);
+}
+
+.notice {
+    color: var(--muted);
+    font-size: 1rem;
+    margin: 0 0 1rem;
+}
+
+/* Code et texte, avec numéros de ligne (compteur CSS) */
+.code {
+    margin: 0;
+    padding: var(--s0) 0;
+    overflow: auto;
+    max-height: 78vh;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+    font: .85rem/1.6 ui-monospace, Menlo, monospace;
+    tab-size: 4;
+    counter-reset: line;
+}
+
+.code .line {
+    display: block;
+    min-height: 1.618em;
+    padding-right: 1rem;
+    white-space: pre;
+    counter-increment: line;
+}
+
+.code .line::before {
+    content: counter(line);
+    display: inline-block;
+    width: 3.8rem;
+    padding-right: 1rem;
+    text-align: right;
+    color: var(--muted);
+    user-select: none;
+}
+
+/* Image, PDF, vidéo */
+.stage {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+}
+
+.stage img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+}
+
+.frame {
+    display: block;
+    width: 100%;
+    height: 78vh;
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    background: #fff;
+}
+
+.media {
+    display: block;
+    width: 100%;
+    max-height: 78vh;
+    border-radius: var(--s-1);
+}
+
+/* Markdown rendu */
+.md {
+    padding: var(--s0) var(--s1);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+    overflow-wrap: anywhere;
+}
+
+.md > :first-child {
+    margin-top: 0;
+}
+
+.md > :last-child {
+    margin-bottom: 0;
+}
+
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+    margin: 1.618em 0 .618em;
+    line-height: 1.272;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--fg);
+}
+
+.md h1 { font-size: var(--t4); }
+.md h2 { font-size: 1.618rem; padding-bottom: .236em; border-bottom: 1px solid var(--line); }
+.md h3 { font-size: 1.272rem; }
+.md h4, .md h5, .md h6 { font-size: 1rem; }
+
+.md p,
+.md ul,
+.md ol,
+.md blockquote,
+.md pre,
+.md table {
+    margin: 0 0 1em;
+}
+
+.md ul,
+.md ol {
+    padding-left: var(--s1);
+}
+
+.md a {
+    color: var(--accent);
+}
+
+.md code {
+    padding: .236em .382em;
+    border-radius: var(--s-3);
+    background: var(--hover);
+    border: 1px solid var(--line);
+    font: .88em ui-monospace, Menlo, monospace;
+}
+
+.md pre {
+    padding: var(--s-1) var(--s0);
+    overflow: auto;
+    background: var(--hover);
+    border: 1px solid var(--line);
+    border-radius: var(--s-2);
+}
+
+.md pre code {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: .85rem;
+    line-height: 1.618;
+}
+
+.md blockquote {
+    padding: .236em var(--s0);
+    color: var(--muted);
+    border-left: 3px solid var(--line);
+}
+
+.md hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 1.618em 0;
+}
+
+.md img {
+    max-width: 100%;
+}
+
+.md table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+
+.md th,
+.md td {
+    padding: var(--s-2) var(--s-1);
+    border: 1px solid var(--line);
+    text-align: left;
+}
+
+.md th {
+    background: var(--hover);
+}
+
+/* Export PDF : aide et commande à copier */
+.export-help {
+    margin-bottom: var(--s0);
+    padding: var(--s0) var(--s1);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+}
+
+.export-help p,
+.export-help ol {
+    margin: 0 0 var(--s-1);
+}
+
+.export-help ol {
+    padding-left: var(--s1);
+}
+
+.export-help .command {
+    margin: 0 0 var(--s-1);
+    padding: var(--s-1) var(--s0);
+    overflow-x: auto;
+    background: var(--hover);
+    border: 1px solid var(--line);
+    border-radius: var(--s-2);
+    font: .85rem/1.5 ui-monospace, Menlo, monospace;
+    white-space: pre;
+}
+
+.export-help .copied {
+    margin-left: var(--s-1);
+    color: var(--muted);
+    font-size: 1rem;
+}
+
+.export-help code {
+    padding: .236em .382em;
+    border-radius: var(--s-3);
+    background: var(--hover);
+    border: 1px solid var(--line);
+    font-size: .886em;
+}
+
+/* Lignes de lecture confortables : environ 75 caractères au plus (36rem ; l unité ch est trop large dans cette police) (les blocs de code et les tableaux restent pleine largeur) */
+.md p,
+.md ul,
+.md ol,
+.md blockquote {
+    max-width: 36rem;
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #edeae4; }
+    .mark { fill: #222222; }
+    .ring { fill: none; stroke: #222222; stroke-width: 5.5; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #262624; }
+      .mark { fill: #ecebe6; }
+      .ring { stroke: #ecebe6; }
+    }
+  </style>
+  <!-- Disque coupé en deux, comme le bouton de thème. Coins arrondis : 12,4 sur 64, soit 0,618 rem, le même rayon que les cartes. -->
+  <rect class="bg" width="64" height="64" rx="12.4"/>
+  <circle class="ring" cx="32" cy="32" r="19.8"/>
+  <path class="mark" d="M32 12.2 A19.8 19.8 0 0 0 32 51.8 Z"/>
+</svg>

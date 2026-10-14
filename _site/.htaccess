@@ -1,0 +1,8 @@
+# Les fichiers PHP de _site (bibliothèques et vues) servent seulement aux pages, et les scripts d'export
+# se lancent depuis le Terminal : jamais d'accès direct par le web.
+<FilesMatch "\.(php|sh|applescript)$">
+    Require all denied
+</FilesMatch>
+
+# Les polices hebergees dans le projet (_site/fonts) : type MIME explicite.
+AddType font/woff2 .woff2

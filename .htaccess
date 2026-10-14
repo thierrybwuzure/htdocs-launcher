@@ -1,0 +1,24 @@
+# --- Securite : jamais de telechargement direct de fichiers sensibles ---
+<FilesMatch "\.(sql|csv|env|bak|log|sqlite|db|ini|conf|pem|key)$|^\.(env|git|ht)">
+    Require all denied
+</FilesMatch>
+
+# --- Dossiers de depot et d'outils : repondent comme s'ils n'existaient pas (404) ---
+# Les fichiers a l'interieur de .git (HEAD, config, objets) ne sont pas touches par la regle ci-dessus.
+RedirectMatch 404 "(^|/)\.(git|claude|vscode)(/|$)"
+
+# --- Fichiers locaux de configuration ou de notes (identifiants, .DS_Store de macOS) ---
+<FilesMatch "(\.local\.[A-Za-z0-9]+|^\.DS_Store)$">
+    Require all denied
+</FilesMatch>
+
+# --- Page de listing personnalisee (localhost seulement) ---
+# Les sites .local ont leur propre DocumentRoot : ils gardent le comportement normal.
+<If "%{HTTP_HOST} =~ /^(localhost|127\.0\.0\.1|\[::1\])(:[0-9]+)?$/">
+    DirectoryIndex index.html index.php /_listing.php
+</If>
+
+# --- Notes de travail : jamais servies par le web (comme dans chaque projet) ---
+<Files "CLAUDE.md">
+    Require all denied
+</Files>

@@ -1,0 +1,831 @@
+/* Feuille de style commune à l'accueil et aux listings.
+   Ordre : thème (variables), base, en-tête, barre d'outils, listes et cartes, pied de page. */
+
+/* ---------- Thème ---------- */
+:root {
+    /* Proportion d'or (φ = 1,618) : toutes les distances, tailles et proportions en dérivent. */
+    --phi: 1.618;
+    --s-3: .236rem;   /* φ^-3 */
+    --s-2: .382rem;   /* φ^-2 */
+    --s-1: .618rem;   /* φ^-1 */
+    --s0: 1rem;
+    --s1: 1.618rem;   /* φ */
+    --s2: 2.618rem;   /* φ² */
+    --s3: 4.236rem;   /* φ³ */
+    --glyph: calc(1.2rem / 1.272);   /* taille du cercle du bouton des projets */
+    --row: 2.9rem;    /* hauteur de la ligne d'outils ; l'écart entre ses éléments = --row / φ³ */
+    --t-1: .886rem;   /* échelle typographique : puissances de φ^(1/4) autour de 1rem */
+    --t4: 2.058rem;
+    --bg: #edeae4;
+    --card: #f8f6f2;
+    --fg: #222;
+    --muted: #605f5a;
+    --line: #e0dcd3;
+    --hover: #f1efe9;
+    --accent: #245f9f;
+    --lab: #9c4605;
+    --res: #74448c;
+    --red: #b3261e;   /* devoir à rendre */
+    --green: #1a7238;   /* exercice pour pratiquer */
+    --shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    --k-code: #245f9f;
+    --k-img: #74448c;
+    --k-doc: #8f5a1c;
+    --k-zip: #6f6320;
+    --k-other: #66665f;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1f1f1d;
+        --card: #2e2e2b;
+        --fg: #ecebe6;
+        --muted: #a1a097;
+        --line: #40403c;
+        --hover: #353532;
+        --accent: #7fb5f3;
+        --lab: #f0b45c;
+        --res: #cba2de;
+        --red: #ff8a80;
+        --green: #62c984;
+        --shadow: none;
+        --k-code: #7fb5f3;
+        --k-img: #cba2de;
+        --k-doc: #e1a35c;
+        --k-zip: #cbbb62;
+        --k-other: #acaca2;
+        color-scheme: dark;
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #1f1f1d;
+    --card: #2e2e2b;
+    --fg: #ecebe6;
+    --muted: #a1a097;
+    --line: #40403c;
+    --hover: #353532;
+    --accent: #7fb5f3;
+    --lab: #f0b45c;
+    --res: #cba2de;
+    --red: #ff8a80;
+    --green: #62c984;
+    --shadow: none;
+    --k-code: #7fb5f3;
+    --k-img: #cba2de;
+    --k-doc: #e1a35c;
+    --k-zip: #cbbb62;
+    --k-other: #acaca2;
+    color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+html {
+    font-size: 125%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+    max-width: calc(40rem * 1.618);
+    margin: var(--s2) auto;
+    padding: 0 var(--s0);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.618;
+}
+
+h1 {
+    font-size: var(--t4);
+    margin: 0 0 var(--s-3);
+    overflow-wrap: anywhere;
+}
+
+h2 {
+    font-size: var(--t-1);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin: var(--s2) 0 var(--s-1);
+    font-weight: 400;
+}
+
+/* Titres de groupe (Projets, Cours et exercices...) : légèrement décalés vers la droite (moitié du padding des cartes). */
+section[data-group] > h2 {
+    padding-left: var(--s-1);
+}
+
+small {
+    color: var(--muted);
+    font-size: var(--t-1);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ---------- En-tête ---------- */
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--s0);
+}
+
+/* En-tête des pages sans barre d'outils (aperçu) : phpMyAdmin et bouton de thème, à droite. */
+.top-tools {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--row) / 4.236);
+    margin-left: auto;
+}
+
+.top-tools a.tool {
+    height: var(--row);
+    box-sizing: border-box;
+}
+
+.count {
+    color: var(--muted);
+    font-size: 1rem;
+    margin: 0 0 var(--s0);
+}
+
+.crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3);
+    min-width: 0;
+    font-size: 1rem;
+    color: var(--muted);
+}
+
+.crumbs a {
+    color: var(--fg);
+    text-decoration: none;
+}
+
+.crumbs a:hover {
+    color: var(--accent);
+}
+
+.crumbs [aria-current="page"] {
+    color: var(--fg);
+    font-weight: 600;
+}
+
+.crumbs .sep {
+    color: var(--muted);
+}
+
+/* ---------- Barre d'outils (filtre, tri, thème) ---------- */
+.tools {
+    display: grid;
+    grid-template-columns: 1.618fr 1fr;   /* 61,8 % pour les contrôles, 38,2 % pour les liens d'outils */
+    align-items: center;
+    /* Écart entre les éléments de la ligne : hauteur de la ligne (2,9 rem) divisée par φ au cube (4,236), soit environ 0,68 rem. */
+    gap: calc(var(--row) / 4.236);
+    margin-bottom: var(--s0);
+}
+
+.tools-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--row) / 4.236);
+    min-width: 0;
+}
+
+.tools-side {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
+/* Téléphone : une seule colonne, les liens d'outils passent sous les contrôles, à droite. */
+@media (max-width: 720px) {
+    .tools {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tools input {
+    flex: 1 1 10rem;   /* le filtre s'étire pour remplir la zone de gauche (61,8 %) */
+    min-width: 0;
+    padding: var(--s-1) var(--s0);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    background: var(--card);
+    color: var(--fg);
+    font: inherit;
+    box-shadow: var(--shadow);
+    height: var(--row);
+}
+
+.tools input::placeholder {
+    color: var(--muted);
+    opacity: 1;
+}
+
+.sort {
+    display: flex;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    border-radius: var(--s-1);
+    background: var(--line);
+    height: var(--row);
+}
+
+/* Boutons sans bordure : le bouton actif est une pastille claire qui se pose sur le fond du groupe. */
+.sort button {
+    padding: 0 var(--s-1);
+    border: 0;
+    border-radius: var(--s-2);
+    background: transparent;
+    color: color-mix(in srgb, var(--muted) 80%, var(--fg));
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color .25s ease, color .25s ease, box-shadow .25s ease;
+}
+
+.sort button:hover {
+    color: var(--fg);
+}
+
+.sort button[aria-pressed="true"] {
+    color: var(--fg);
+    background: var(--card);
+    box-shadow: var(--shadow);
+}
+
+/* Groupe Projets masqué par le bouton de la barre d'outils (l'attribut est posé sur <html> par theme-init.js). */
+[data-hide-projects] [data-kind="projets"] {
+    display: none;
+}
+
+/* Bouton de masquage des projets : icône seule et neutre, anneau quand les projets sont visibles, disque plein quand ils sont masqués. */
+/* Ce bouton est seul : pas de fond de groupe ; il s'éclaire doucement au survol et quand les projets sont masqués. */
+.sort-single {
+    padding: 0;
+    background: transparent;
+    /* L'icône est plus petite que son bouton : on rapproche le bouton pour que l'icône soit à la même distance du bouton de thème que les autres éléments. */
+    margin-left: calc(-1 * (var(--row) / 1.272 - var(--glyph)) / 2);
+    height: auto;
+}
+
+.sort .icon-btn {
+    display: grid;
+    place-items: center;
+    width: calc(var(--row) / 1.272);
+    height: calc(var(--row) / 1.272);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: none;
+    opacity: 0;   /* invisible au repos : seul le cercle apparaît quand la souris passe dessus */
+    transition: opacity .3s ease, color .3s ease;
+}
+
+/* Visible seulement au survol ou au clavier ; l'anneau (projets affichés) ou le disque plein (masqués) montre l'état. */
+.sort .icon-btn:hover,
+.sort .icon-btn:focus-visible {
+    background: transparent;
+    color: var(--fg);
+    opacity: .85;
+}
+
+/* Écrans tactiles : pas de survol, donc le cercle reste très discret mais présent. */
+@media (hover: none) {
+    .sort .icon-btn {
+        opacity: .35;
+    }
+}
+
+.icon-btn .dot {
+    width: var(--glyph);
+    height: var(--glyph);
+}
+
+.icon-btn .dot-off,
+[data-hide-projects] .icon-btn .dot-open {
+    display: none;
+}
+
+[data-hide-projects] .icon-btn .dot-off {
+    display: block;
+}
+
+/* Bouton de thème : rond, avec un disque coupé en deux qui fait un demi-tour. */
+.theme {
+    flex: none;
+    margin-left: auto;
+    display: grid;
+    place-items: center;
+    width: calc(var(--row) / 1.272);   /* comme le bouton des projets : ligne d'outils / √φ */
+    height: calc(var(--row) / 1.272);
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--fg);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background-color .2s ease;
+}
+
+.tools .theme {
+    margin-left: 0;
+    align-self: center;
+}
+
+.theme:hover {
+    background: var(--hover);
+}
+
+.theme-icon {
+    width: calc(var(--row) / 2.058);   /* disque = bouton / φ */
+    height: calc(var(--row) / 2.058);
+    overflow: visible;
+}
+
+/* Thème clair : moitié gauche pleine. Thème sombre : le disque a tourné de 180 degrés, moitié droite pleine. */
+.theme-half {
+    transform-origin: 16px 16px;
+    transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+}
+
+:root[data-theme="dark"] .theme-half {
+    transform: rotate(180deg);
+}
+
+.tools input:focus-visible,
+.sort button:focus-visible,
+.theme:focus-visible,
+.host:focus-visible,
+.list a:focus-visible,
+.btn:focus-visible,
+.crumbs a:focus-visible,
+a.tool:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ---------- Cartes (accueil) ---------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--s1);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-3);
+    min-width: 0;
+    aspect-ratio: 1.618 / 1;   /* proportion d'or ; une carte au contenu plus haut peut grandir */
+    padding: var(--s0);
+    background: var(--card);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+    transition: transform .15s, background .15s;
+}
+
+/* Pas de bordure : au survol, la carte se soulève et son fond change légèrement. */
+.card:hover {
+    transform: translateY(-2px);
+    background: var(--hover);
+}
+
+/* Nom à gauche, étiquette tout à droite de la carte. Un nom long passe à la ligne sans pousser l'étiquette. */
+.card-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--s-2);
+    width: 100%;
+    min-width: 0;
+}
+
+.card-title .card-link {
+    min-width: 0;
+}
+
+.card-title .tag {
+    flex: none;
+    margin-left: auto;
+}
+
+/* Description : une ou deux phrases courtes sous le nom, en gris secondaire. */
+.card-desc {
+    margin: 0;
+    color: var(--muted);
+    font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;   /* Atkinson n'existe qu'en 400 et 700 : le poids léger vient de la police système, comme les étiquettes */
+    font-weight: 300;
+    font-size: var(--t-1);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;   /* jamais plus de trois lignes : la carte garde sa proportion */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Le lien principal couvre toute la carte ; le lien .local est posé par-dessus. */
+.card-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--s-1);
+}
+
+.card-link:focus-visible {
+    outline: none;
+}
+
+.card-link:focus-visible::after {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.card strong {
+    display: block;
+    overflow-wrap: anywhere;
+    font-weight: 400; /* la police n'a que 400 et 700 : 400 est le seul poids plus léger */
+}
+
+.host {
+    position: relative;
+    z-index: 1;
+    margin-top: .1rem;
+    color: var(--accent);
+    font-size: var(--t-1);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.host:hover {
+    text-decoration: underline;
+}
+
+/* Bas de carte : l'adresse .local à gauche, « VS Code » tout à droite (posés par-dessus le lien principal). */
+.card-actions {
+    margin-top: auto;   /* les liens restent en bas de la carte */
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-1);
+    width: 100%;
+    min-width: 0;
+}
+
+.code-link {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    margin-left: auto;
+    color: var(--muted);
+    font-size: var(--t-1);
+    text-decoration: none;
+}
+
+.code-link:hover {
+    color: var(--accent);
+}
+
+.code-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Étiquette de nature (APP, LIVE, LAB, HOMEWORK...) : juste le mot, dans la couleur de la famille (ni fond ni bordure).
+   Même boîte pour toutes, calée sur le mot le plus long (HOMEWORK, TEMPLATE), alignée à droite. Volontairement petite (.68rem). */
+.tag {
+    box-sizing: border-box;
+    width: 3.9rem;
+    padding: .1rem 0;
+    text-align: right;
+    white-space: nowrap;
+    font: 300 .68rem/1.3 system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.tag-projets {
+    color: var(--accent);
+}
+
+.tag-cours {
+    color: var(--lab);
+}
+
+.tag-ressources {
+    color: var(--res);
+}
+
+/* Couleurs propres à une nature, au-dessus de celles de la famille : devoir à rendre en rouge, exercice en vert (LAB garde l'orange). */
+.tag-k-homework {
+    color: var(--red);
+}
+
+.tag-k-exercise {
+    color: var(--green);
+}
+
+.tag-dossiers {
+    color: var(--muted);
+}
+
+/* ---------- Listes (fichiers et dossiers) ---------- */
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: var(--card);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.list li {
+    display: flex;
+    align-items: center;
+    min-height: var(--row);   /* toutes les lignes ont la hauteur de la ligne d'outils (58 px) */
+    border-bottom: 1px solid var(--line);
+    transition: background .12s;
+}
+
+.list li:last-child {
+    border-bottom: none;
+}
+
+.list li:hover {
+    background: var(--hover);
+}
+
+.list li > a:first-child {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--s0);
+    padding: var(--s-1) var(--s0);
+    text-decoration: none;
+    color: inherit;
+}
+
+.list li:hover .name {
+    color: var(--accent);
+}
+
+/* Petit bouton en forme de lien (Aperçu, Ouvrir, Télécharger...) */
+.btn {
+    flex: none;
+    display: inline-block;
+    padding: var(--s-2) var(--s-1);
+    border: 1px solid var(--line);
+    border-radius: var(--s-2);
+    background: var(--card);
+    color: var(--muted);
+    font: inherit;
+    font-size: var(--t-1);
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+    line-height: 1.272;
+}
+
+.btn:hover,
+.btn[aria-pressed="true"] {
+    color: var(--fg);
+    border-color: var(--accent);
+}
+
+.list li > .btn {
+    width: var(--s3);   /* dans les listes : même largeur que la colonne de l'étiquette (φ³ rem) */
+    text-align: center;
+    margin-right: var(--s0);
+}
+
+/* Une ligne sans bouton « Aperçu » réserve la place du bouton : les dates des dossiers et des fichiers finissent au même endroit. */
+.list li:not(.empty-row):not(:has(.btn)) {
+    padding-right: calc(var(--s3) + var(--s0));
+}
+
+.empty-row {
+    padding: var(--s0);
+    color: var(--muted);
+}
+
+.badge {
+    flex: none;
+    width: var(--s3);   /* colonne de l'étiquette : φ³ rem */
+    text-align: left;
+    font: 300 .68rem/1 system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: .04em;
+    padding: var(--s-2) 0;
+    color: var(--c);
+}
+
+.badge.dir {
+    color: var(--muted);
+}
+
+.badge.dir.projets {
+    color: var(--accent);
+}
+
+.badge.dir.cours {
+    color: var(--lab);
+}
+
+.badge.dir.ressources {
+    color: var(--res);
+}
+
+.badge.dir.d-homework {
+    color: var(--red);
+}
+
+.badge.dir.d-exercise {
+    color: var(--green);
+}
+
+.k-code { --c: var(--k-code); }
+.k-img { --c: var(--k-img); }
+.k-doc { --c: var(--k-doc); }
+.k-zip { --c: var(--k-zip); }
+.k-other { --c: var(--k-other); }
+
+.name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.name {
+    font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;   /* Atkinson n'existe qu'en 400 et 700 : le poids léger vient de la police système */
+    font-weight: 300;
+}
+
+/* Fichiers : le nom avec sa courte description dessous ; la ligne a la hauteur de la ligne d'outils × φ (94 px). */
+.list li.has-desc {
+    min-height: calc(var(--row) * 1.618);
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+}
+
+.file-desc {
+    color: var(--muted);
+    font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;   /* même style que la description des cartes */
+    font-weight: 300;
+    font-size: var(--t-1);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Bouton Aperçu grisé : aperçu interdit pour ce fichier. */
+.btn.is-off {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.meta {
+    flex: none;
+    color: var(--muted);
+    font-size: var(--t-1);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.meta span + span::before {
+    content: " · ";
+}
+
+.empty {
+    color: var(--muted);
+    padding: 1rem 0;
+}
+
+/* ---------- Pied de page ---------- */
+/* Titre, puis le fil d'Ariane juste à côté, sur la même ligne. */
+.title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--s-1) var(--s1);
+}
+
+/* Le bouton phpMyAdmin est dans la zone de droite (38,2 %) de la ligne des outils, à la hauteur de la ligne, son bord droit sur celui des dernières cartes. */
+.tools a.tool {
+    height: var(--row);
+    box-sizing: border-box;
+}
+
+a.tool {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-1) var(--s0);
+    background: var(--card);
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    box-shadow: var(--shadow);
+    transition: background-color .2s ease, color .2s ease;
+}
+
+a.tool:hover {
+    background: var(--hover);
+    color: var(--accent);
+}
+
+a.tool .dot {
+    width: var(--s-2);
+    height: var(--s-2);
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* ---------- Téléphone et mouvement réduit ---------- */
+@media (max-width: 560px) {
+    .list li:not(.empty-row):not(:has(.btn)) {
+        padding-right: 0;
+    }
+
+    /* Téléphone : le nom garde toute la largeur, la date et la taille passent dessous, alignées sous le nom. */
+    .list li > a:first-child {
+        flex-wrap: wrap;
+        row-gap: var(--s-3);
+    }
+
+    .name {
+        flex: 1 1 calc(100% - var(--s3) - var(--s0));
+    }
+
+    .meta {
+        flex: 1 0 100%;
+        padding-left: calc(var(--s3) + var(--s0));
+        text-align: left;
+    }
+
+    .meta span + span {
+        display: block;
+    }
+
+    /* Téléphone : le bouton Aperçu passe sous le texte, aligné sur le nom, au lieu de lui voler sa largeur. */
+    .list li {
+        flex-wrap: wrap;
+    }
+
+    .list li > a:first-child {
+        flex: 1 1 100%;
+    }
+
+    .list li > .btn {
+        margin: 0 0 var(--s-1) calc(var(--s3) + var(--s0) + var(--s0));
+    }
+
+    .meta span + span::before {
+        content: "";
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme,
+    .theme-half {
+        transition: none;
+    }
+
+    .card,
+    .list li,
+    .btn,
+    a.tool {
+        transition: none;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}
