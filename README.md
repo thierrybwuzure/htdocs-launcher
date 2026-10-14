@@ -2,7 +2,7 @@
 
 English below · [Version française plus bas](#version-française)
 
-<img src="docs/screenshot.png" alt="Homepage, light theme" width="49%"> <img src="docs/screenshot-dark.png" alt="Homepage, dark theme" width="49%">
+<img src="docs/screenshot-dark.png" alt="Homepage, dark theme" width="49%"> <img src="docs/screenshot.png" alt="Homepage, light theme" width="49%">
 
 A local homepage for a XAMPP (or similar) web root: project cards with date and nature tag, folder listings with file descriptions, a file preview page, light and dark themes. Interface in French.
 
