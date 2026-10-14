@@ -4,7 +4,7 @@ English below · [Version française plus bas](#version-française)
 
 A local homepage for a XAMPP (or similar) web root: project cards with date and nature tag, folder listings with file descriptions, a file preview page, light and dark themes. Interface in French.
 
-![Screenshot of the homepage with demo projects](docs/screenshot.png)
+<img src="docs/screenshot.png" alt="Homepage with demo projects, light and dark themes (clair / light)" width="49%"> <img src="docs/screenshot-dark.png" alt="Homepage with demo projects, light and dark themes (sombre / dark)" width="49%">
 
 > **Local use only.** This launcher has no login. Run it on `localhost` (listen on `127.0.0.1` only) and never expose it to the Internet or an untrusted network. It lists your folders and previews your files, and the refusal of sensitive files works from a list of names (`config/`, `db.php`, `.env`, dotfiles, a few extensions): a secret kept in a file with another name can be previewed. It follows symbolic links, and the first-page images of Office documents use a macOS tool (up to 20 s per document), so an exposed copy could be slowed down by anyone.
 
@@ -36,7 +36,7 @@ MIT, see [LICENSE](LICENSE). The font keeps its own license (above).
 
 Une page d'accueil locale pour la racine web d'un XAMPP (ou équivalent) : cartes de projets avec date et étiquette de nature, listings de dossiers avec description de chaque fichier, page d'aperçu des fichiers, thèmes clair et sombre. Interface en français.
 
-![Capture d'écran de la page d'accueil avec des projets de démonstration](docs/screenshot.png)
+<img src="docs/screenshot.png" alt="Page d'accueil avec des projets de démonstration, thèmes clair et sombre (clair / light)" width="49%"> <img src="docs/screenshot-dark.png" alt="Page d'accueil avec des projets de démonstration, thèmes clair et sombre (sombre / dark)" width="49%">
 
 > **Usage local uniquement.** Ce lanceur n'a pas de connexion. Utilise-le sur `localhost` (écoute sur `127.0.0.1` seulement) et ne l'expose jamais sur Internet ni sur un réseau qui n'est pas le tien. Il liste tes dossiers et affiche tes fichiers, et le refus des fichiers sensibles repose sur une liste de noms (`config/`, `db.php`, `.env`, fichiers cachés, quelques extensions) : un secret rangé dans un fichier d'un autre nom peut être affiché. Il suit les liens symboliques, et les images de première page des documents Office utilisent un outil macOS (jusqu'à 20 s par document) : une copie exposée pourrait être ralentie par n'importe qui.
 
