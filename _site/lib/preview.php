@@ -18,7 +18,7 @@ const PREVIEW_KINDS = [
 
 // Fichiers et dossiers qui contiennent des identifiants : jamais d'aperçu.
 const PREVIEW_BLOCKED_NAMES = ['database.php', 'db.php', 'config.php', 'wp-config.php', 'settings.local.json', 'id_rsa',
-    'credentials.json', 'secrets.json', 'service-account.json', 'appsettings.json'];
+    'credentials.json', 'secrets.json', 'service-account.json', 'appsettings.json', 'claude.md'];   // claude.md : notes de travail, jamais servies
 const PREVIEW_BLOCKED_DIRS  = ['config', 'secrets', 'private'];
 
 const PREVIEW_TEXT_LIMIT   = 1048576;                      // 1 Mo
