@@ -21,6 +21,7 @@ Requires PHP 8.0 or later. `.htaccess` is ignored by nginx (Herd): block sensiti
 - `_site/lib/kind.php`: `KIND_OVERRIDES` forces a folder's nature. A `.tag` file in a folder does the same.
 - `.local` links are read from `/Applications/XAMPP/xamppfiles/etc/extra/httpd-vhosts.conf` (read-only). If the file is missing, no links are shown (change `VHOSTS_CONF` in `_site/lib/vhosts.php`).
 - PDF export of Office files (`_site/export/`) is macOS only and runs from Terminal.
+- Hide the Projets group: in the tools bar, after the theme button, a round marker button is invisible until you hover over it (or focus it with the keyboard). Click it to hide or show the Projets cards; the choice is remembered in the browser.
 
 Contents of config files, `db.php`, PHP files and dotfiles are never read or previewed, because they can hold passwords.
 
@@ -51,6 +52,7 @@ Il faut PHP 8.0 ou plus récent. `.htaccess` est ignoré par nginx (Herd) : bloq
 - `_site/lib/kind.php` : `KIND_OVERRIDES` impose la nature d'un dossier. Un fichier `.tag` dans un dossier fait la même chose.
 - Les liens `.local` sont lus (en lecture seule) dans `/Applications/XAMPP/xamppfiles/etc/extra/httpd-vhosts.conf`. Si le fichier est absent, aucun lien n'est affiché (change `VHOSTS_CONF` dans `_site/lib/vhosts.php`).
 - L'export en PDF des fichiers Office (`_site/export/`) ne fonctionne que sur macOS, et se lance depuis le Terminal.
+- Masquer le groupe Projets : dans la barre d'outils, après le bouton de thème, un bouton rond est invisible tant que tu ne le survoles pas (ou que tu ne l'atteins pas au clavier). Un clic masque ou affiche les cartes Projets ; le choix est gardé dans le navigateur.
 
 Le contenu des fichiers de configuration, de `db.php`, des fichiers PHP et des fichiers cachés (dont le nom commence par un point) n'est jamais lu ni affiché en aperçu, parce qu'ils peuvent contenir des mots de passe.
 
