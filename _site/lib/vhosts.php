@@ -49,12 +49,15 @@ function local_host_for(string $folderPath): ?string
     return null;
 }
 
-/** Vrai si cette adresse .local sert exactement ce dossier (et non l'un de ses sous-dossiers, quand un site .local ne sert qu'un sous-dossier). */
+/**
+ * Vrai si cette adresse .local sert ce dossier : sa racine est le dossier lui-même, ou son sous-dossier public/
+ * (racine web d'un site qui garde son code hors de public/). Un autre sous-dossier ne compte pas.
+ */
 function local_host_serves_folder(string $folderPath, string $host): bool
 {
     $real = realpath($folderPath);
     foreach (local_hosts() as $entry) {
-        if ($entry['host'] === $host && $entry['root'] === $real) {
+        if ($entry['host'] === $host && ($entry['root'] === $real || $entry['root'] === $real . '/public')) {
             return true;
         }
     }
