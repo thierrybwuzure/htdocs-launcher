@@ -152,10 +152,12 @@ function folder_kind(string $path): string
         }
     }
 
+    // Une structure app/ + core/ est une application, même si sa page d'accueil est dans public/
+    if ($p['mvc'] || ($index !== null && $p['db'])) {
+        return 'app';
+    }
+
     if ($index !== null) {
-        if ($p['mvc'] || $p['db']) {
-            return 'app';
-        }
         if ($index !== 'index.php' && ($p['git'] || $p['html'] >= 3 || $p['img'] >= 5)) {
             return 'live';
         }
